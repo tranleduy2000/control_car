@@ -5,10 +5,10 @@ package com.duy.controlcar;
  */
 
 public class Protocol {
-    public static final String MOVE_UP = "MOVE_UP";
-    public static final String MOVE_LEFT = "MOVE_LEFT";
-    public static final String MOVE_RIGHT = "MOVE_RIGHT";
-    public static final String MOVE_DOWN = "MOVE_DOWN";
+    public static final String MOVE_UP = "U";
+    public static final String MOVE_LEFT = "L";
+    public static final String MOVE_RIGHT = "R";
+    public static final String MOVE_DOWN = "D";
 
-    public static final String STOP = "STOP";
+    public static final String STOP = "S";
 }

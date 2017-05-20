@@ -24,17 +24,12 @@ public class Connector {
     public BluetoothSocket socket;
     @Nullable
     public OnServerListener onServerListener = null;
+    @Nullable
     private OutputStream out;
     private AtomicBoolean atomicBoolean = new AtomicBoolean(true);
-    private String lastCommand = "";
 
     public Connector(@NonNull BluetoothSocket socket) {
         this.socket = socket;
-        try {
-            this.out = socket.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         connect();
     }
 
@@ -50,10 +45,17 @@ public class Connector {
      * Kết nối bluetooth với arduino
      */
     public void connect() {
-        new ServerListenerTask().execute();
-        if (onServerListener != null) {
-            onServerListener.onConnectChangeStatus(true);
+        try {
+            this.out = socket.getOutputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+
+//        new ServerListenerTask().execute();
+//        if (onServerListener != null) {
+//            onServerListener.onConnectChangeStatus(true);
+//        }
     }
 
     /**
@@ -71,24 +73,11 @@ public class Connector {
         }
     }
 
-    public void sendMessage(String message/*, @Nullable CommandAdapter commandAdapter*/) {
+    public synchronized void sendMessage(String message) {
+        Log.d(TAG, "sendMessage() called with: message = [" + message + "]");
         try {
-            message += "\n";
-            if (!message.equalsIgnoreCase(lastCommand)) {
-                byte[] msgBuffer = message.getBytes();           //converts entered String into bytes
-                try {
-                    out.write(msgBuffer);                //write bytes over BT connection via outstream
-                    out.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                lastCommand = message;
-
-              /*  String date = new Date().toString();
-                if (commandAdapter != null) {
-                    commandAdapter.addMessengeItem(new MessengeItem(date,
-                            MessengeItem.TYPE_OUT, message, false));
-                }*/
+            if (out != null) {
+                out.write(message.getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,23 +118,6 @@ public class Connector {
                 Log.d(TAG, "doInBackground");
                 inputStream = socket.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-               /* while (true) {
-                    try {
-                        bytes = inputStream.read(buffer);            //read bytes from input buffer
-                        String readMessage = new String(buffer, 0, bytes);
-                        char[] c = readMessage.toCharArray();
-                        for (int i = 0; i < c.length; i++) {
-                            if (c[i] == '\n') {
-                                publishProgress(msg.toString());
-                                msg = new StringBuilder();
-                            } else {
-                                msg.append(c[i]);
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }*/
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
                     publishProgress(line);

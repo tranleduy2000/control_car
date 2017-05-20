@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements Connector.OnServe
 
         setContentView(R.layout.activity_main);
         bindView();
-
     }
 
     private void bindView() {
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements Connector.OnServe
     }
 
     public void sendCommand(String cmd) {
-        if (mConnector != null) {
+        if (mConnector != null && mConnector.isConnect()) {
             mConnector.sendMessage(cmd);
         } else {
             msg(getString(R.string.not_connect));
@@ -92,20 +91,35 @@ public class MainActivity extends AppCompatActivity implements Connector.OnServe
         // TODO: 21-May-17  received data
     }
 
-    class CommandTouchListener implements View.OnTouchListener {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mConnector != null) {
+            mConnector.disconnect();
+        }
+    }
+
+    private class CommandTouchListener implements View.OnTouchListener {
         private String cmd;
 
-        public CommandTouchListener(String cmd) {
-
+        CommandTouchListener(String cmd) {
             this.cmd = cmd;
         }
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Log.d(TAG, "onTouch() called with: v = [" + v + "], event = [" + event + "]");
+
                 sendCommand(cmd);
+                return true;
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
+
+                Log.d(TAG, "onTouch() called with: v = [" + v + "], event = [" + event + "]");
+
                 sendCommand(Protocol.STOP);
+                return true;
             }
             return false;
         }
@@ -161,6 +175,4 @@ public class MainActivity extends AppCompatActivity implements Connector.OnServe
 
 
     }
-
-
 }
