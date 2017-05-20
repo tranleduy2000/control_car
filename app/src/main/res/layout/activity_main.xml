@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.duy.controlcar.MainActivity">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="fitCenter"
+        android:onClick="moveUp"
+        app:srcCompat="@drawable/ic_keyboard_arrow_up_black_48dp"
+        android:layout_above="@+id/img_right"
+        android:layout_toRightOf="@+id/img_left"
+        android:layout_toEndOf="@+id/img_left" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_down"
+        android:onClick="moveDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_left"
+        android:layout_centerHorizontal="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_keyboard_arrow_down_black_48dp" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/img_down"
+        android:onClick="moveLeft"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_keyboard_arrow_left_black_48dp" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_right"
+        android:layout_width="wrap_content"
+        android:onClick="moveRight"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/img_down"
+        android:layout_toEndOf="@+id/img_up"
+        android:layout_toRightOf="@+id/img_up"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right_black_48dp" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button5"
+        android:onClick="doConnect"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/connect" />
+
+    <TextView
+        android:id="@+id/txt_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button5"
+        android:layout_alignEnd="@+id/img_down"
+        android:layout_alignRight="@+id/img_down"
+        android:text="TextView" />
+
+</RelativeLayout>

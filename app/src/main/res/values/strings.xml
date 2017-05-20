@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ControlCar</string>
+    <string name="bt_not_support">Không hỗ trợ bluetooth!</string>
+    <string name="connect">Connect</string>
+    <string name="non_device">Chưa có thiết bị được ghép nối</string>
+    <string name="connecting">Connecting…</string>
+    <string name="text_1">can not connect</string>
+    <string name="not_connect">Not connect</string>
+    <string name="connected">Connected</string>
+    <string name="dis_connect">Disconnected</string>
+</resources>
