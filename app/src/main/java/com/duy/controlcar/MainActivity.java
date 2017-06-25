@@ -46,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements Connector.OnServe
         findViewById(R.id.img_down).setOnTouchListener(new CommandTouchListener(Protocol.MOVE_DOWN));
         findViewById(R.id.img_left).setOnTouchListener(new CommandTouchListener(Protocol.MOVE_LEFT));
         findViewById(R.id.img_right).setOnTouchListener(new CommandTouchListener(Protocol.MOVE_RIGHT));
+        findViewById(R.id.btn_connect).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doConnect(v);
+            }
+        });
     }
 
     public void doConnect(View view) {

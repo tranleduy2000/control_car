@@ -1,7 +1,7 @@
 #include <AFMotor.h>
 
 AF_DCMotor motorLeft(2);
-AF_DCMotor motorRight(3);
+AF_DCMotor motorRight(4);
 
 int currentSpeed = 255; // 0 -> 255
 
@@ -36,34 +36,26 @@ void loop() {
 */
 void checkCommand() {
   if (!Serial.available()) return;
-  String cmd = "";
-
   char c = Serial.read();
-  cmd = cmd + c;
+  Serial.println(c);
 
- // Serial.println(cmd);
-
-  if (cmd == "U") {
+  if (c == 'U') {
     moveForward();
 
-  } else if (cmd == "R") {
+  } else if (c == 'R') {
     moveRight();
 
-  } else if (cmd == "L") {
+  } else if (c == 'L') {
     moveLeft();
 
-  } else if (cmd == "D") {
+  } else if (c == 'D') {
     moveBackward();
 
-  } else if (cmd == "S") {
-
+  } else if (c == 'S') {
     stopMotor();
+    
   }
-
 }
-
-
-
 
 void stopMotor() {
   motorLeft.run(RELEASE);
