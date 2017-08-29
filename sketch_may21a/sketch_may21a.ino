@@ -1,7 +1,7 @@
 #include <AFMotor.h>
 
 AF_DCMotor motorLeft(2);
-AF_DCMotor motorRight(4);
+AF_DCMotor motorRight(3);
 
 int currentSpeed = 255; // 0 -> 255
 
@@ -10,7 +10,6 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Started ");
   currentSpeed = 255;
-
 }
 
 void test() {
